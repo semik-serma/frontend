@@ -5,8 +5,10 @@ import Newbutton from "@/components/ReadMoreButton";
 import Image from "next/image";
 import Link from "next/link";
 import Footer from "@/components/Footer";
+import toast from "react-hot-toast";
 
 export default function Page() {
+  toast.success("Welcome for visiting")
   return (
     <div className="relative min-h-screen text-white">
       {/* BACKGROUND */}

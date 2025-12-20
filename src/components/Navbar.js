@@ -30,7 +30,7 @@ const Navbar = () => {
   return (
     <div className="flex flex-col items-center">
       {/* TOP BAR */}
-      <div className="flex justify-between bg-blue-900 w-screen items-center px-10 h-20 sticky top-0 z-50">
+      <div className="flex justify-between bg-blue-900 w-screen items-center px-70 h-20 sticky top-0 z-50">
         {/* FLAG */}
         <Image
           src="https://flagcdn.com/np.svg"
@@ -79,7 +79,7 @@ const Navbar = () => {
       </div>
 
       {/* SECOND BAR */}
-      <div className="flex justify-between px-10 w-screen items-center bg-slate-100 text-black h-20">
+      <div className="flex justify-between px-70 w-screen items-center bg-slate-100 text-black h-20">
         <Image
           src="https://tse3.mm.bing.net/th/id/OIP.q6hexFxcdJnqy_OJPTRLTgHaHa"
           width={70}
