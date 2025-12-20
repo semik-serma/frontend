@@ -1,111 +1,109 @@
-'use client'
-import { FaFacebook } from "react-icons/fa";
-import { FaYoutube } from "react-icons/fa";
-import Image from 'next/image'
-import Link from 'next/link'
-import { FaLinkedin } from "react-icons/fa";
-import Searchbar from "./SearchBar";
-import React, { useEffect, useState } from 'react'
-import DateTime from "./DateTime";
+"use client";
+
+import React, { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { FaFacebook, FaYoutube, FaLinkedin, FaSearch } from "react-icons/fa";
+import Play from "./Play";
+import Searchtheinternet from "./Searchtheinternet";
 import { useDateTime } from "@/hooks/useDateTime";
-import { Flag } from "lucide-react";
-import Button from "./Button";
-import { useRouter } from "next/router";
-import Newsearchbar from "./NewSearch.js";
-import Searchtheinternet from "./Searchtheinternet.js"
 
 const Navbar = () => {
+  const { bsDate } = useDateTime();
 
-  const {
-    englishDate,        // "Monday, January 15, 2024"
-    englishTime,        // "10:30:45 AM"
-    englishDateTime,    // "Monday, January 15, 2024, 10:30:45 AM"
-    nepaliDate,        // "सोमवार, १५ जनवरी, २०२४"
-    nepaliTime,        // "१०:३०:४५ अपराह्न"
-    nepaliDateTime,     // Full Nepali date and time
-    bsDate,            // "२०८० पौष २"
-    bsYear,            // "२०८०"
-    bsMonth,           // "पौष"
-    bsDay,             // "२"
-    rawDate            // JavaScript Date object
-  } = useDateTime();
+  const [searchtogoogle, setsearchtogoogle] = useState("");
 
-    
-   const [searchtogoogle,setsearchtogoogle]=useState('') 
-  
-   const handlechange=(event)=>{
-    setsearchtogoogle(event.target.value)
-    console.log(event.target.value)
-   }
-   const handlesearch=(event)=>{
-    event.preventDefault()
-   
-  
-    
-    // window.location.href=`https://www.google.com/search?q=${searchtogoogle}`
-        // window.location.href=`https://www.facebook.com/=${searchtogoogle}`
-            window.open(`https://www.google.com/search?q=${searchtogoogle}`)
+  const handlechange = (event) => {
+    setsearchtogoogle(event.target.value);
+  };
 
+  const handlesearch = (event) => {
+    event.preventDefault();
+    if (!searchtogoogle.trim()) return;
 
-   }
+    window.open(
+      `https://www.google.com/search?q=${encodeURIComponent(searchtogoogle)}`,
+      "_blank"
+    );
+  };
 
   return (
-    <div className="flex flex-col items-center ">
-        <div className="flex justify-between bg-blue-900
- w-screen items-center px-20 h-20 sticky top-0">
-            <div className="">
-       <Image
-  src="https://flagcdn.com/np.svg"
-  width={30}
-  height={40}
-  alt="Nepal"/>
-      </div>
-            <div className="flex gap-4 text-2xl">
-        
-      
-        <Link href="/">Home</Link>
-        <Link href="/">About</Link>
-        <Link href="/">Contact</Link>
-      
-    
-            </div>
-           
-              <div className="flex gap-4">
-            <Link href='https://www.facebook.com/'><FaFacebook  className="text-2xl text-blue-600"/></Link>
-            <Link href='https://www.youtube.com/@digitalmediacenterphidim6022'> <FaYoutube className="text-2xl text-red-500" /></Link>
-            <Link href='https://www.linkedin.com/feed/'><FaLinkedin className="text-2xl text-blue-400" /></Link>
-            </div>
-             <div className="text-2xl">
-              <Link href='/login'>Login</Link>
-            </div>
-          <div className="text-[20px]">
-            {/* <DateTime/> */}
-            {bsDate}
-          </div>
+    <div className="flex flex-col items-center">
+      {/* TOP BAR */}
+      <div className="flex justify-between bg-blue-900 w-screen items-center px-10 h-20 sticky top-0 z-50">
+        {/* FLAG */}
+        <Image
+          src="https://flagcdn.com/np.svg"
+          width={30}
+          height={40}
+          alt="Nepal"
+        />
+
+        {/* SEARCH BAR */}
+        <form onSubmit={handlesearch} className="relative w-64">
+          <Searchtheinternet
+            value={searchtogoogle}
+            onChange={handlechange}
+            className="w-full pr-12 pl-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+          <button
+            type="submit"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+          >
+            <FaSearch />
+          </button>
+        </form>
+
+        {/* SOCIAL ICONS */}
+        <div className="flex gap-4">
+          <Link href="https://www.facebook.com/" target="_blank">
+            <FaFacebook className="text-2xl text-blue-600" />
+          </Link>
+          <Link
+            href="https://www.youtube.com/@digitalmediacenterphidim6022"
+            target="_blank"
+          >
+            <FaYoutube className="text-2xl text-red-500" />
+          </Link>
+          <Link href="https://www.linkedin.com/feed/" target="_blank">
+            <FaLinkedin className="text-2xl text-blue-400" />
+          </Link>
         </div>
-        <div className="flex justify-between px-20 w-screen items-center bg-slate-100 text-black">
-      <div>
-              <Image src='https://tse3.mm.bing.net/th/id/OIP.q6hexFxcdJnqy_OJPTRLTgHaHa?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3'width={70} height={70} alt='Tiger gang' className="rounded-full"
-              ></Image>
-            </div>
-      <div className="flex">
 
- <Searchtheinternet value={searchtogoogle} onChange={handlechange}/>
-  {/* <Button onClick={handlesearch} /> */}
-  <button type='submit' onClick={handlesearch} className="border-2 border-black p-2 rounded-full w-40 bg-slate-950 text-blue-600">
-    Search
-  </button>
+        {/* DATE */}
+        <div className="text-[20px] text-white">{bsDate}</div>
 
-</div>
-      <div>
-        <Link href='/calculator' className="text-2xl">Calculator</Link>
+        {/* GAME / PLAY */}
+        <Play />
+      </div>
+
+      {/* SECOND BAR */}
+      <div className="flex justify-between px-10 w-screen items-center bg-slate-100 text-black h-20">
+        <Image
+          src="https://tse3.mm.bing.net/th/id/OIP.q6hexFxcdJnqy_OJPTRLTgHaHa"
+          width={70}
+          height={70}
+          alt="Tiger gang"
+          className="rounded-full"
+        />
+
+        <div className="flex gap-6 text-2xl">
+          <Link href="/">Home</Link>
+          <Link href="/about">About</Link>
+          <Link href="/contact">Contact</Link>
+        </div>
+
+        <Link href="/login" className="text-2xl">
+          Login
+        </Link>
+
+        <Link href="/calculator" className="text-2xl">
+          Calculator
+        </Link>
       </div>
     </div>
-    
-    
-    
-    </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

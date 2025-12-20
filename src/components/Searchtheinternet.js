@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Input = () => {
+const Input = ({value,onChange}) => {
   return (
     <StyledWrapper>
-      <input placeholder="Searth the google...." type="text" name="text" className="input" />
+      <input placeholder="Searth the google...." type="text" name="text" className="input" value={value} onChange={onChange} />
     </StyledWrapper>
   );
 }
