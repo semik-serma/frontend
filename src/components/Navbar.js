@@ -1,109 +1,83 @@
 "use client";
 
 import React, { useState } from "react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import Image from "next/image";
-import Link from "next/link";
-import { FaFacebook, FaYoutube, FaLinkedin, FaSearch } from "react-icons/fa";
-import Play from "./Play";
-import Searchtheinternet from "./Searchtheinternet";
-import { useDateTime } from "@/hooks/useDateTime";
+import { FaSearch } from "react-icons/fa";
 
-const Navbar = () => {
-  const { bsDate } = useDateTime();
+const Page = () => {
+  const [search, setSearch] = useState("");
 
-  const [searchtogoogle, setsearchtogoogle] = useState("");
-
-  const handlechange = (event) => {
-    setsearchtogoogle(event.target.value);
-  };
-
-  const handlesearch = (event) => {
-    event.preventDefault();
-    if (!searchtogoogle.trim()) return;
-
-    window.open(
-      `https://www.google.com/search?q=${encodeURIComponent(searchtogoogle)}`,
-      "_blank"
-    );
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (!search.trim()) return;
+    window.open(`https://www.google.com/search?q=${encodeURIComponent(search)}`, "_blank");
+    setSearch("");
   };
 
   return (
-    <div className="flex flex-col items-center">
-      {/* TOP BAR */}
-      <div className="flex justify-between bg-blue-900 w-screen items-center px-70 h-20 sticky top-0 z-50">
-        {/* FLAG */}
-        <Image
-          src="https://flagcdn.com/np.svg"
-          width={30}
-          height={40}
-          alt="Nepal"
-        />
+    <div className="flex flex-col min-h-screen bg-gray-50">
+      <Navbar />
 
-        {/* SEARCH BAR */}
-        <form onSubmit={handlesearch} className="relative w-64">
-          <Searchtheinternet
-            value={searchtogoogle}
-            onChange={handlechange}
-            className="w-full pr-12 pl-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+      <main className="flex-1 max-w-6xl mx-auto px-4 py-16">
+        <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">
+          Welcome to My Page
+        </h1>
 
-          <button
-            type="submit"
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+        {/* Custom SearchBar */}
+        <div className="flex justify-center mb-12">
+          <form
+            onSubmit={handleSearch}
+            className="relative w-80 md:w-96 lg:w-[400px]"
           >
-            <FaSearch />
-          </button>
-        </form>
-
-        {/* SOCIAL ICONS */}
-        <div className="flex gap-4">
-          <Link href="https://www.facebook.com/" target="_blank">
-            <FaFacebook className="text-2xl text-blue-600" />
-          </Link>
-          <Link
-            href="https://www.youtube.com/@digitalmediacenterphidim6022"
-            target="_blank"
-          >
-            <FaYoutube className="text-2xl text-red-500" />
-          </Link>
-          <Link href="https://www.linkedin.com/feed/" target="_blank">
-            <FaLinkedin className="text-2xl text-blue-400" />
-          </Link>
+            <input
+              type="text"
+              placeholder="Search Google..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 rounded-full bg-gray-100 text-black border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+            />
+            <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+          </form>
         </div>
 
-        {/* DATE */}
-        <div className="text-[20px] text-white">{bsDate}</div>
+        {/* Example content */}
+        <div className="flex flex-col md:flex-row items-center gap-8">
+          <div className="md:w-1/2">
+            <Image
+              src="https://images.unsplash.com/photo-1593642532973-d31b6557fa68?auto=format&fit=crop&w=800&q=80"
+              width={600}
+              height={400}
+              alt="Example"
+              className="rounded-lg shadow-lg"
+            />
+          </div>
 
-        {/* GAME / PLAY */}
-        <Play />
-      </div>
-
-      {/* SECOND BAR */}
-      <div className="flex justify-between px-70 w-screen items-center bg-slate-100 text-black h-20">
-        <Image
-          src="https://tse3.mm.bing.net/th/id/OIP.q6hexFxcdJnqy_OJPTRLTgHaHa"
-          width={70}
-          height={70}
-          alt="Tiger gang"
-          className="rounded-full"
-        />
-
-        <div className="flex gap-6 text-2xl">
-          <Link href="/">Home</Link>
-          <Link href="/about">About</Link>
-          <Link href="/contact">Contact</Link>
+          <div className="md:w-1/2 text-gray-700 space-y-4">
+            <p>
+              Welcome! I am Semik, and I have knowledge in Django, HTML, CSS, Next.js, and JavaScript.
+            </p>
+            <p>
+              My goal is to build interactive, responsive, and engaging websites using modern technologies.
+            </p>
+            <p>
+              This project is built with Next.js, React, and Tailwind CSS to make it fast, responsive, and reliable.
+            </p>
+          </div>
         </div>
 
-        <Link href="/login" className="text-2xl">
-          Login
-        </Link>
+        <div className="mt-12 text-center space-y-4">
+          <h2 className="text-2xl font-semibold text-gray-800">Our Values</h2>
+          <p className="text-gray-600">
+            Innovation, Creativity, Learning, and Community — building experiences that bring joy and value to everyone.
+          </p>
+        </div>
+      </main>
 
-        <Link href="/calculator" className="text-2xl">
-          Calculator
-        </Link>
-      </div>
+      <Footer />
     </div>
   );
 };
 
-export default Navbar;
+export default Page;

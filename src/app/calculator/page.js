@@ -19,42 +19,63 @@ export default function Page() {
     setValue(value + v);
   }
 
-  const btn = "bg-gray-700 hover:bg-gray-600 h-12 rounded text-lg";
-
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-black to-gray-900">
+
       {/* NAVBAR */}
       <Navbar />
 
-      {/* MAIN CONTENT */}
-      <main className="flex-1 flex items-center justify-center bg-gray-900">
-        <div className="bg-gray-800 p-4 rounded-xl w-64 shadow-lg">
+      {/* MAIN */}
+      <main className="flex-1 flex items-center justify-center px-4 py-20">
+        <div
+          className="w-full max-w-sm rounded-2xl
+                     bg-white/10 backdrop-blur-xl
+                     border border-white/20
+                     shadow-[0_0_40px_rgba(0,255,255,0.2)]
+                     p-6"
+        >
+          {/* DISPLAY */}
           <input
             value={value}
             readOnly
-            className="w-full h-14 mb-4 bg-black text-green-400 text-right text-2xl px-3 rounded"
+            placeholder="0"
+            className="w-full h-16 mb-6 bg-black/70
+                       text-green-400 text-right text-3xl
+                       px-4 rounded-xl outline-none"
           />
 
-          <div className="grid grid-cols-4 gap-2">
+          {/* BUTTONS */}
+          <div className="grid grid-cols-4 gap-3">
+
             {["7","8","9","/","4","5","6","*","1","2","3","-","0",".","=","+"].map((b) => (
               <button
                 key={b}
                 onClick={() => press(b)}
-                className={`${btn} ${
-                  ["/","*","-","+"].includes(b)
-                    ? "bg-orange-500 hover:bg-orange-400"
-                    : ""
-                }`}
+                className={`
+                  h-14 rounded-xl text-lg font-medium
+                  transition active:scale-95
+                  ${
+                    ["/","*","-","+"].includes(b)
+                      ? "bg-orange-500 hover:bg-orange-400 text-white"
+                      : b === "="
+                      ? "bg-emerald-500 hover:bg-emerald-400 text-white"
+                      : "bg-gray-700 hover:bg-gray-600 text-white"
+                  }
+                `}
               >
                 {b}
               </button>
             ))}
 
+            {/* CLEAR */}
             <button
               onClick={() => press("C")}
-              className="col-span-4 bg-red-600 h-12 rounded text-lg hover:bg-red-500"
+              className="col-span-4 h-14 rounded-xl
+                         bg-red-600 hover:bg-red-500
+                         text-white text-lg font-medium
+                         transition active:scale-95"
             >
-              C
+              Clear
             </button>
           </div>
         </div>

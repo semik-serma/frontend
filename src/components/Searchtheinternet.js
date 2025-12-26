@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Input = ({value,onChange}) => {
   return (
     <StyledWrapper>
-      <input placeholder="Searth the google...." type="text" name="text" className="input" value={value} onChange={onChange} />
+      <input placeholder="Search the google...." type="text" name="text" className="input" value={value} onChange={onChange} />
     </StyledWrapper>
   );
 }

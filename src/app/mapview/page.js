@@ -3,11 +3,14 @@
 import React, { useEffect, useState } from 'react'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
+import { FaMapMarkerAlt } from "react-icons/fa";
+import L from 'leaflet'
+import '@/lib/leafletIcon'
 
 const Page = () => {
   const [location, setLocation] = useState(null)
 
-  useEffect(() => {
+useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setLocation({

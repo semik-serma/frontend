@@ -6,7 +6,7 @@ const Button = () => {
   return (
     <StyledWrapper>
       <div className="container w-fit">
-        <Link href='/'><button className="button">Read more</button></Link>
+        <Link href='/about'><button className="button">Read more</button></Link>
       </div>
     </StyledWrapper>
   );

@@ -6,13 +6,31 @@ import Image from "next/image";
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import toast from "react-hot-toast";
+import { useEffect } from "react";
+
+
 
 export default function Page() {
-  toast.success("Welcome for visiting")
+  useEffect(()=>{
+    const notify = () => {
+  toast.success("Welcome for visiting my website!", {
+    position: "bottom-right", // <-- here is the key
+    autoClose: 3000,          // milliseconds
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+};
+  },[])
+  
+
+
   return (
-    <div className="relative min-h-screen text-white">
+    <div className="relative min-h-screen text-white overflow-x-hidden">
       {/* BACKGROUND */}
-      <div className="fixed inset-0 z-0">
+      <div className="fixed inset-0 -z-10">
         <Image
           src="/mybackground.jpg"
           alt="Background"
@@ -23,132 +41,110 @@ export default function Page() {
       </div>
 
       {/* OVERLAY */}
-      <div className="fixed inset-0 bg-black/70 z-10" />
+      <div className="fixed inset-0 bg-black/70 -z-10" />
 
       {/* CONTENT */}
-      <div className="relative z-20 flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen">
         <Navbar />
 
         {/* HERO */}
-        <div className="flex-1 flex items-center justify-center px-8">
-          <div className="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 items-center gap-12">
-            <div className="space-y-8">
-              <h1 className="text-5xl md:text-6xl font-bold">
+        <section className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-12">
+          <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+            
+            {/* TEXT */}
+            <div className="space-y-6 text-center md:text-left">
+              <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold">
                 Hi, I am a web developer
               </h1>
-              <p className="text-xl md:text-2xl">
+              <p className="text-base sm:text-lg md:text-2xl text-gray-200">
                 My name is Semik and I am a developer
               </p>
-              <Newbutton />
+              <div className="flex justify-center md:justify-start">
+                <Newbutton />
+              </div>
             </div>
 
-            <div className="flex justify-center m-10">
+            {/* IMAGE */}
+            <div className="flex justify-center">
               <Image
                 src="/new3..png"
                 alt="My photo"
-                width={200}
-                height={200}
-                className="mt-20 rounded-full"
+                width={180}
+                height={180}
+                className="rounded-full"
               />
             </div>
           </div>
-        </div>
+        </section>
 
         {/* SKILLS */}
-        <div className="py-20 flex flex-col items-center">
-          <h1 className="text-7xl mb-16 font-bold">My Skills</h1>
+        <section className="py-16 px-4">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-center mb-12">
+            My Skills
+          </h1>
 
-          <div className="flex flex-wrap justify-center gap-12 px-8 max-w-10xl">
-
-            {/* HTML */}
-            <div className="flex flex-col items-center justify-between p-6 rounded-2xl shadow-2xl bg-gray-900/80 backdrop-blur-sm w-52 h-64">
-              <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank">
-                <Image src="https://upload.wikimedia.org/wikipedia/commons/3/38/HTML5_Badge.svg" alt="HTML" width={90} height={90} />
-              </Link>
-              <p className="text-sm text-gray-300 text-center">
-                Markup language for web structure
-              </p>
-              <Link
-                href="/htmlarticlepage"
-                target="_blank"
-                className="mt-2 text-sm bg-blue-600 px-4 py-1 rounded hover:bg-blue-500"
+          <div className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto">
+            {[
+              {
+                name: "HTML",
+                img: "https://upload.wikimedia.org/wikipedia/commons/3/38/HTML5_Badge.svg",
+                desc: "Markup language for web structure",
+                color: "bg-blue-600",
+                link: "https://developer.mozilla.org/en-US/docs/Web/HTML",
+              },
+              {
+                name: "JavaScript",
+                img: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
+                desc: "Logic and interactivity for the web",
+                color: "bg-yellow-600",
+                link: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+              },
+              {
+                name: "CSS",
+                img: "https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg",
+                desc: "Styling and responsive layouts",
+                color: "bg-blue-500",
+                link: "https://developer.mozilla.org/en-US/docs/Web/CSS",
+              },
+              {
+                name: "Django",
+                img: "https://th.bing.com/th/id/OIP.3ua5BGFwm_fiQDbrYtc3BAHaE1",
+                desc: "Secure backend web framework",
+                color: "bg-green-700",
+                link: "https://www.djangoproject.com/",
+              },
+              {
+                name: "Next.js",
+                img: "https://creazilla-store.fra1.digitaloceanspaces.com/icons/3220588/nextjs-icon-md.png",
+                desc: "React framework for production apps",
+                color: "bg-gray-700",
+                link: "https://nextjs.org/docs",
+              },
+            ].map((skill) => (
+              <div
+                key={skill.name}
+                className="w-44 h-60 sm:w-52 sm:h-64 flex flex-col items-center justify-between p-4 rounded-2xl bg-gray-900/80 backdrop-blur shadow-xl"
               >
-                Read More
-              </Link>
-            </div>
+                <Link href={skill.link} target="_blank">
+                  <Image src={skill.img} alt={skill.name} width={80} height={80} />
+                </Link>
 
-            {/* JavaScript */}
-            <div className="flex flex-col items-center justify-between p-6 rounded-2xl shadow-2xl bg-gray-900/80 backdrop-blur-sm w-52 h-64">
-              <Link href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-                <Image src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png" alt="JavaScript" width={90} height={90} />
-              </Link>
-              <p className="text-sm text-gray-300 text-center">
-                Logic and interactivity for the web
-              </p>
-              <Link
-                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"
-                target="_blank"
-                className="mt-2 text-sm bg-yellow-600 px-4 py-1 rounded hover:bg-yellow-500"
-              >
-                Read More
-              </Link>
-            </div>
+                <p className="text-xs sm:text-sm text-center text-gray-300">
+                  {skill.desc}
+                </p>
 
-            {/* CSS */}
-            <div className="flex flex-col items-center justify-between p-6 rounded-2xl shadow-2xl bg-gray-900/80 backdrop-blur-sm w-52 h-64">
-              <Link href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank">
-                <Image src="https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg" alt="CSS" width={90} height={90} />
-              </Link>
-              <p className="text-sm text-gray-300 text-center">
-                Styling and responsive layouts
-              </p>
-              <Link
-                href="https://developer.mozilla.org/en-US/docs/Web/CSS"
-                target="_blank"
-                className="mt-2 text-sm bg-blue-500 px-4 py-1 rounded hover:bg-blue-400"
-              >
-                Read More
-              </Link>
-            </div>
-
-            {/* Django */}
-            <div className="flex flex-col items-center justify-between p-6 rounded-2xl shadow-2xl bg-gray-900/80 backdrop-blur-sm w-52 h-64">
-              <Link href="https://www.djangoproject.com/" target="_blank">
-                <Image src="https://th.bing.com/th/id/OIP.3ua5BGFwm_fiQDbrYtc3BAHaE1" alt="Django" width={90} height={90} />
-              </Link>
-              <p className="text-sm text-gray-300 text-center">
-                Secure backend web framework
-              </p>
-              <Link
-                href="https://www.djangoproject.com/"
-                target="_blank"
-                className="mt-2 text-sm bg-green-700 px-4 py-1 rounded hover:bg-green-600"
-              >
-                Read More
-              </Link>
-            </div>
-
-            {/* Next.js */}
-            <div className="flex flex-col items-center justify-between p-6 rounded-2xl shadow-2xl bg-gray-900/80 backdrop-blur-sm w-52 h-64">
-              <Link href="https://nextjs.org/docs" target="_blank">
-                <Image src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/3220588/nextjs-icon-md.png" alt="Next.js" width={90} height={90} />
-              </Link>
-              <p className="text-sm text-gray-300 text-center">
-                React framework for production apps
-              </p>
-              <Link
-                href="https://nextjs.org/docs"
-                target="_blank"
-                className="mt-2 text-sm bg-gray-700 px-4 py-1 rounded hover:bg-gray-600"
-              >
-                Read More
-              </Link>
-            </div>
-
+                <Link
+                  href='/about'
+                  target="_blank"
+                  className={`text-xs sm:text-sm px-3 py-1 rounded ${skill.color}`}
+                >
+                  Read More
+                </Link>
+              </div>
+            ))}
           </div>
-        </div>
+        </section>
 
-        {/* FOOTER */}
         <Footer />
       </div>
     </div>
